@@ -1,0 +1,215 @@
+body {
+  font-family: "Raleway", sans-serif;
+  line-height: 1.5;
+}
+
+.primary-font {
+  font-family: "Raleway", sans-serif;
+}
+
+.black-color {
+  color: #293347;
+}
+
+.bg-black {
+  background-color: #293347;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.font-weight-thick {
+  font-weight: 400;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.font-weight-thin {
+  font-weight: 100;
+}
+
+.rounded-btn {
+  border-radius: 50px;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.bg-purple {
+  background: #8C43FF;
+}
+
+.color-purple {
+  color: #8C43FF;
+}
+
+.list-none {
+  list-style-type: none;
+}
+
+.medium-section {
+  padding-bottom: 12rem;
+  padding-top: 10rem;
+}
+
+.long-section {
+  padding-bottom: 25rem;
+  padding-top: 12rem;
+}
+
+.btn-purple {
+  color: #8C43FF;
+  background-color: transparent;
+  border-color: #8C43FF;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  border-width: 2px;
+  font-weight: 300;
+  font-size: 18px;
+  font-family: "Raleway", sans-serif;
+}
+.btn-purple:hover {
+  color: #fff;
+  background-color: #8C43FF;
+  border-color: #7322f3;
+}
+
+.text-purple {
+  color: #8C43FF;
+}
+
+.my-avatar {
+  width: 20%;
+}
+
+.mb-10 {
+  margin-bottom: 10rem;
+}
+
+/*About Me */
+.about-me {
+  line-height: 1.5;
+  font-size: 20px;
+}
+
+/* Skills */
+.overlap-card {
+  margin-top: -17rem;
+  padding-bottom: 1rem;
+  border-radius: 0.9rem;
+}
+
+/* My Work */
+.strength-thumb {
+  width: 450px;
+  height: 250px;
+  background: #8C43FF;
+}
+
+.service-icon {
+  top: 30%;
+}
+
+.service-title {
+  font-size: 1rem;
+}
+
+.strengths .strength-grid figure {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.strengths .strength-grid figure:hover .text-overlay, .strengths .strength-grid figure:hover figcaption {
+  opacity: 1;
+}
+
+.strengths .strength-grid figure:active .text-overlay, .strengths .strength-grid figure:active figcaption {
+  opacity: 1;
+}
+
+.strengths .strength-grid figure figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0rem 3rem;
+  color: #fff;
+  z-index: 1;
+}
+
+.strengths .strength-grid .text-overlay {
+  background-color: #293347;
+}
+
+.strengths .strength-grid .text-overlay, .strengths .strength-grid figcaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  -webkit-transition: 0.45s ease-in-out;
+  transition: 0.45s ease-in-out;
+}
+
+/* Progress Section */
+.skills-bars .overlap-card {
+  margin-top: -8rem;
+  padding-bottom: 1rem;
+  border-radius: 0.9rem;
+}
+.skills-bars .progress-bar {
+  background-color: #fff;
+}
+.skills-bars .progress {
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 1.25rem;
+}
+
+/* Recent Work */
+.recent-work .card {
+  height: 250px;
+  border-radius: 12px;
+}
+.recent-work .card .site-img {
+  border-radius: 12px;
+  height: 250px;
+}
+.recent-work .card .site-img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+.logo-white {
+  width: 10%;
+}
+
+.btn-purple-white {
+  color: #fff;
+  background-color: transparent;
+  border-color: #FFF;
+  border-radius: 35px;
+}
+.btn-purple-white:hover {
+  color: #8C43FF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+
+.inspirational-quote,
+.vote {
+  opacity: 0.7;
+}
+
+.sharethis-inline-reaction-buttons .st-text,
+.sharethis-inline-reaction-buttons .st-count {
+  color: #FFF !important;
+  font-weight: 300 !important;
+}
+
+/*# sourceMappingURL=style.css.map */

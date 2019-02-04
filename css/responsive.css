@@ -1,0 +1,68 @@
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width : 480px) {
+  .my-avatar {
+    width: 50%;
+  }
+  .logo-white {
+    width: 40%;
+  }
+  .skills-border {
+    border-bottom: 1px solid #dee2e6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+}
+
+@media only screen and (min-width : 480px) {
+  .skills-border {
+    border-bottom: 1px solid #dee2e6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-right: 0;
+  }
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  .logo-white {
+    width: 30%;
+  }
+  .my-avatar {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width : 768px) {
+  .skills-border {
+    border-right: 1px solid #dee2e6;
+    border-bottom: 0;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  .logo-white {
+    width: 30%;
+  }
+  .my-avatar {
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width : 992px) {
+  .skills-border {
+    border-right: 1px solid #dee2e6;
+    border-bottom: 0;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .skills-border {
+    border-right: 1px solid #dee2e6;
+    border-bottom: 0;
+  }
+}
