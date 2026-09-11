@@ -1,510 +1,871 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Xerxes Bamji – Front End Developer & UI/UX Designer based in Cardiff, South Wales. Specialising in React, Tailwind CSS, responsive design and accessible web experiences.">
+  <meta name="author" content="Xerxes Bamji">
+  <link rel="icon" href="/favicon.ico">
+  <title>Xerxes Bamji | Front End Developer &amp; Designer</title>
 
-    <title>Xerxes Bamji | Front End Developer & Designer</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Raleway:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel="stylesheet">
+  <!-- Tailwind CSS CDN (v3) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Raleway', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#f3f0ff',
+              100: '#e9e3ff',
+              200: '#d4caff',
+              300: '#b39dff',
+              400: '#8c65ff',
+              500: '#6d28d9',
+              600: '#5b21b6',
+              700: '#4c1d95',
+              800: '#3b0764',
+              900: '#270040',
+            },
+          },
+          animation: {
+            'fade-up':    'fadeUp 0.7s ease both',
+            'fade-in':    'fadeIn 1s ease both',
+            'float':      'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%':   { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)'    },
+            },
+            fadeIn: {
+              '0%':   { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)'   },
+              '50%':      { transform: 'translateY(-16px)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Icon CSS files -->
-    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+  <style>
+    .reveal         { opacity:0; transform:translateY(32px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
 
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
+    .avatar-ring { box-shadow:0 0 0 6px rgba(109,40,217,.35),0 0 40px rgba(109,40,217,.25); }
 
-    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5b1ee02f73e0f200114483fb&product=inline-reaction-buttons' async='async'></script>
-  </head>
-  <body>
+    .expertise-card:hover { box-shadow:0 0 0 2px rgba(109,40,217,.5),0 20px 60px rgba(109,40,217,.2); }
 
-    <section class="text-light pt-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 col-md-7 col-7">
-            <a class="navbar-brand" href=""><img class="logo w-25" src="img/logo-purple.png" alt="Xerxes Bamji"></a>
+    .tag { display:inline-block; background:rgba(109,40,217,.15); color:#c4b5fd; font-size:.7rem; font-weight:600; letter-spacing:.05em; padding:2px 10px; border-radius:999px; border:1px solid rgba(109,40,217,.3); }
+
+    .strength-card  { perspective:1000px; }
+    .strength-inner { transition:transform .6s; transform-style:preserve-3d; position:relative; width:100%; height:100%; }
+    .strength-card:hover .strength-inner { transform:rotateY(180deg); }
+    .strength-front,.strength-back { backface-visibility:hidden; position:absolute; inset:0; }
+    .strength-back  { transform:rotateY(180deg); }
+
+    .grad-text { background:linear-gradient(135deg,#a78bfa,#f0abfc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+    .hero-noise::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"); pointer-events:none; opacity:.06; }
+  </style>
+</head>
+
+<body class="bg-[#0a0612] text-gray-200 font-sans antialiased overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" aria-label="Xerxes Bamji home">
+        <img src="img/logo-white.png" alt="Xerxes Bamji" class="h-8 w-auto">
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+        <a href="#about"      class="hover:text-white transition-colors duration-200">About</a>
+        <a href="#expertise"  class="hover:text-white transition-colors duration-200">Expertise</a>
+        <a href="#experience" class="hover:text-white transition-colors duration-200">Experience</a>
+        <a href="#work"       class="hover:text-white transition-colors duration-200">Work</a>
+        <a href="#contact"    class="hover:text-white transition-colors duration-200">Contact</a>
+      </div>
+      <a href="mailto:xerxes.bamji@hotmail.com"
+         class="hidden md:inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-brand-500/30 hover:-translate-y-0.5">
+        Say Hello <i class="fas fa-arrow-right text-xs"></i>
+      </a>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white p-2" aria-label="Open menu" aria-expanded="false">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-[#120a20]/95 backdrop-blur-xl border-t border-white/10 px-6 py-5 flex flex-col gap-4 text-sm font-medium text-gray-300">
+      <a href="#about"      class="hover:text-white transition-colors" onclick="closeMobileMenu()">About</a>
+      <a href="#expertise"  class="hover:text-white transition-colors" onclick="closeMobileMenu()">Expertise</a>
+      <a href="#experience" class="hover:text-white transition-colors" onclick="closeMobileMenu()">Experience</a>
+      <a href="#work"       class="hover:text-white transition-colors" onclick="closeMobileMenu()">Work</a>
+      <a href="#contact"    class="hover:text-white transition-colors" onclick="closeMobileMenu()">Contact</a>
+      <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-2 bg-brand-500 text-white px-5 py-2.5 rounded-full w-fit">
+        Say Hello <i class="fas fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden hero-noise">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-600/30 rounded-full blur-[120px] animate-pulse-slow"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-900/40 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay:.8s"></div>
+      <div class="absolute top-[30%] right-[20%] w-[300px] h-[300px] bg-fuchsia-900/20 rounded-full blur-[80px]"></div>
+    </div>
+    <div class="absolute inset-0 -z-10 opacity-[0.04]" style="background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:60px 60px;"></div>
+
+    <div class="animate-fade-up max-w-4xl">
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-xs font-semibold text-brand-300 uppercase tracking-widest mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        Available for freelance work
+      </div>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6 text-white">
+        Xerxes <span class="grad-text">Bamji</span>
+      </h1>
+      <p class="text-xl sm:text-2xl font-light text-gray-300 mb-4 tracking-wide">Front End Developer &amp; UI/UX Designer</p>
+      <p class="max-w-xl mx-auto text-gray-400 text-base leading-relaxed mb-10">I design and code websites. I strive to make the web look great.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#work" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-xl shadow-brand-500/30 hover:-translate-y-1 text-sm">
+          View My Work <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold px-7 py-3.5 rounded-full transition-all duration-200 backdrop-blur-sm text-sm">
+          Get In Touch
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-16 animate-float" style="animation-delay:.3s">
+      <div class="relative inline-block">
+        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-brand-400/40 to-fuchsia-600/20 blur-xl scale-110"></div>
+        <img src="img/Xerxes.png" alt="Xerxes Bamji" class="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full object-cover avatar-ring">
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 inset-x-0 flex justify-center animate-bounce">
+      <a href="#about" class="text-gray-500 hover:text-white transition-colors" aria-label="Scroll down">
+        <i class="fas fa-chevron-down text-lg"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT BANNER -->
+  <section id="about" class="relative py-24 bg-gradient-to-b from-brand-700 via-brand-600 to-brand-700 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.3)_0%,_transparent_70%)]"></div>
+    <div class="max-w-3xl mx-auto px-6 text-center reveal">
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-6">Hi, I'm Xerxes. Nice to meet you.</h2>
+      <p class="text-white/80 text-lg leading-relaxed">
+        I'm a Front-End Web Developer &amp; Designer. I love to design and build all types of websites. I'm based in Cardiff, South Wales and I have been in the web design industry for over 9 years working on various projects, ranging from basic static websites to more advanced E-Commerce systems.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section class="py-20 bg-[#0a0612]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="reveal group bg-white/5 border border-white/[0.08] rounded-2xl p-8 hover:bg-white/[0.08] transition-all duration-300 backdrop-blur-sm">
+          <div class="w-14 h-14 rounded-xl bg-brand-500/20 flex items-center justify-center mb-6 group-hover:bg-brand-500/30 transition-colors">
+            <i class="fas fa-display text-2xl text-brand-400"></i>
           </div>
-          <div class="col-lg-5 col-md-5 col-5 m-auto text-right">
-            <a class="btn btn-purple rounded-btn px-4 mt-2" href="mailto:xerxes.bamji@hotmail.com">Say Hello</a>
+          <h3 class="text-white font-bold text-xl mb-3">Web Design</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-5">I'm able to turn a client's vision into a reality using professional design software while focusing on modern web design standards.</p>
+          <p class="text-brand-400 text-xs font-semibold mb-2 uppercase tracking-wider">Things I can Design:</p>
+          <p class="text-gray-400 text-sm mb-4">UX, UI, Web, Mobile, Apps</p>
+          <p class="text-brand-400 text-xs font-semibold mb-2 uppercase tracking-wider">Design Tools:</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Figma</span><span class="tag">Balsamiq</span><span class="tag">Photoshop</span><span class="tag">Illustrator</span><span class="tag">Sketch</span>
           </div>
         </div>
-      </div>
-    </section>
 
-	<section>
-		<div class="container">
-			<div class="row pt-1">
-				<div class="col-lg-12 text-center pt-5">
-					<h1 class="primary-font font-weight-bold black-color">Xerxes Bamji - Front End Web Developer & Designer</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center pt-4">
-					<h4>I design and code websites. I strive to make the web look great.</h4>
-				</div>
-				<div class="col-lg-12 text-center py-4">
-					<img class="my-avatar" src="img/Xerxes.png">
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<img class="code w-100" src="img/bg.png">
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="bg-purple long-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h3 class="font-weight-bold text-white">Hi, I'm Xerxes. Nice to meet you.</h3>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center pt-2">
-					<p class="about-me font-weight-thin text-white w-75 m-auto">I'm a Front-End Web Developer & Designer. I love to design and build all types of websites. I'm based in Cardiff, South Wales and I have been in the web design industry for over 8 year working on various projects, ranging from basic static websites to more advanced E-Commerce systems.</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="skills pb-5">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card overlap-card p-5 shadow">
-						<div class="card-body">
-							<div class="row text-center">
-								<div class="col-lg-4 col-md-4 col-sm-12 skills-border pt-3 pt-md-0">
-									<h1 class="color-purple display-4"><span class="lnr lnr-screen"></span></h1>
-									<h4 class="font-weight-bold text-dark py-3">Web Design</h4>
-									<p class="font-weight-light black-color pb-5">I'm able to turn a client's vision into a reality using professional design software and while focusing on modern web design standards.</p>
-									<h6 class="color-purple">Things I can Design:</h6>
-									<p class="font-weight-light black-color pb-5">UX, UI, Web, Mobile, Apps</p>
-									<h6 class="color-purple">Design Tools:</h6>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">Figma</li>
-										<li class="font-weight-light black-color list-none">Balsamiq Mockups</li>
-										<li class="font-weight-light black-color list-none">Adobe Photoshop</li>
-										<li class="font-weight-light black-color list-none">Adobe Illustrator</li>
-										<li class="font-weight-light black-color list-none">Sketch</li>
-									</ul>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-12 skills-border pt-3 pt-md-0">
-									<h1 class="color-purple display-4"><span class="lnr lnr-code"></span></h1>
-									<h4 class="font-weight-bold text-dark py-3">Front End Web Developer</h4>
-									<p class="font-weight-light black-color pb-5">I can code websites from scratch, using HTML, CSS and JavaScript/jQuery as well as using frameworks such as Bootstrap.</p>
-									<h6 class="color-purple">Core Languages:</h6>
-									<p class="font-weight-light black-color pb-5">HTML, CSS, SASS, PHP, JS, Jquery, SQL</p>
-									<h6 class="color-purple">JS Frameworks:</h6>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">React, React Native, Angluar</li>
-									</ul>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">Brief Experience with Vue and Nuxt JS</li>
-									</ul>
-									<h6 class="color-purple">PHP Frameworks:</h6>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">Laravel</li>
-										<li class="font-weight-light black-color list-none">Cake PHP 2</li>
-										<li class="font-weight-light black-color list-none">Cake PHP 3</li>
-									</ul>
-									<h6 class="color-purple">CSS Frameworks:</h6>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">Tailwind CSS</li>
-										<li class="font-weight-light black-color list-none">Bootstrap</li>
-										<li class="font-weight-light black-color list-none">Zurb Foundation</li>
-										<li class="font-weight-light black-color list-none">Bulma</li>
-									</ul>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-12 pt-3 pt-md-0">
-									<h1 class="color-purple display-4"><span class="lnr lnr-pencil"></span></h1>
-									<h4 class="font-weight-bold text-dark py-3">Other Tools</h4>
-									<p class="font-weight-light black-color pb-5">I also use many other applications and software to complete the job presented by the client within the time frame specified and to a high standard .</p>
-									<h6 class="color-purple">Version Control:</h6>
-									<p class="font-weight-light black-color pb-5">Git, Git Flow, GitKraken, Subversion</p>
-									<h6 class="color-purple">Content Management & Ecommerce Systems:</h6>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">Wordpress</li>
-										<li class="font-weight-light black-color list-none">Magento</li>
-										<li class="font-weight-light black-color list-none">Magento 2</li>
-										<li class="font-weight-light black-color list-none">CS Cart</li>
-										<li class="font-weight-light black-color list-none">WooCommerce</li>
-									</ul>
-									<h6 class="color-purple">Packages:</h6>
-									<ul class="p-0">
-										<li class="font-weight-light black-color list-none">NPM</li>
-										<li class="font-weight-light black-color list-none">Gulp</li>
-										<li class="font-weight-light black-color list-none">Composer</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="strengths">
-		<div class="container py-5">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h3 class="font-weight-bold text-dark">Strengths & Capabilities</h3>
-					<p class="font-weight-light black-color py-3">Here are a few of my capabilities that I can offer. Interested? <a href="mailto:xerxes.bamji@hotmail.com">Email me</a>.</p>
-				</div>
-			</div>
-			<div class="row strength-grid d-none d-md-inline-flex">
-				<div class="col-lg-4 col-md-6 col-sm-12 text-center">
-					<figure>
-  						<img class="strength-thumb position-relative w-100" src="img/Purpink.jpg" alt="">
-  						<h1 class="service-icon text-light position-absolute w-100 h-100">
-  							<span class="lnr lnr-screen display-2"></span>
-  							<p class="service-title font-weight-light text-white mt-2">Website Design</p>
-  						</h1>
-  						<figcaption>
-  							<p class="font-weight-light text-white">I have previously designed websites from scratch or I can follow a design to satisfy the clients needs.</p>
-  							<a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
-  						</figcaption>
-  						<div class="text-overlay"></div>
-					</figure>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 text-center">
-					<figure>
-  						<img class="strength-thumb position-relative w-100" src="img/Purpink.jpg" alt="">
-  						<h1 class="service-icon text-light position-absolute w-100 h-100">
-  							<span class="lnr lnr-laptop-phone display-2"></span>
-  							<p class="service-title font-weight-light text-white mt-2">Mobile Responsiveness</p>
-  						</h1>
-  						<figcaption>
-  							<p class="font-weight-light text-white">All sites I make are responsive for all devices, such as desktop, tablet and mobile.</p>
-  							<a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
-  						</figcaption>
-  						<div class="text-overlay"></div>
-					</figure>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 text-center">
-					<figure>
-  						<img class="strength-thumb position-relative w-100" src="img/Purpink.jpg" alt="">
-  						<h1 class="service-icon text-light position-absolute w-100 h-100">
-  							<span class="lnr lnr-pencil display-2"></span>
-  							<p class="service-title font-weight-light text-white mt-2">Wireframes</p>
-  						</h1>
-  						<figcaption>
-  							<p class="font-weight-light text-white">I have experience creating wireframes to show clients how the elements will be displayed on the site.</p>
-  							<a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
-  						</figcaption>
-  						<div class="text-overlay"></div>
-					</figure>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 text-center">
-					<figure>
-  						<img class="strength-thumb position-relative w-100" src="img/Purpink.jpg" alt="">
-  						<h1 class="service-icon text-light position-absolute w-100 h-100">
-  							<span class="lnr lnr-magic-wand display-2"></span>
-  							<p class="service-title font-weight-light text-white mt-2">Website Mockups</p>
-  						</h1>
-  						<figcaption>
-  							<p class="font-weight-light text-white">Using professional design software I can mockup web designs focusing on content structure and simple interactions.</p>
-  							<a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
-  						</figcaption>
-  						<div class="text-overlay"></div>
-					</figure>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 text-center">
-					<figure>
-  						<img class="strength-thumb position-relative w-100" src="img/Purpink.jpg" alt="">
-  						<h1 class="service-icon text-light position-absolute w-100 h-100">
-  							<span class="lnr lnr-select display-2"></span>
-  							<p class="service-title font-weight-light text-white mt-2">Content Management Systems (CMS)</p>
-  						</h1>
-  						<figcaption>
-  							<p class="font-weight-light text-white">If you'd like to manage your own website,  I have experience using popular frameworks such as Wordpress to suit your needs.</p>
-  							<a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
-  						</figcaption>
-  						<div class="text-overlay"></div>
-					</figure>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 text-center">
-					<figure>
-  						<img class="strength-thumb position-relative w-100" src="img/Purpink.jpg" alt="">
-  						<h1 class="service-icon text-light position-absolute w-100 h-100">
-  							<span class="lnr lnr-cart display-2"></span>
-  							<p class="service-title font-weight-light text-white mt-2">E-Commerce</p>
-  						</h1>
-  						<figcaption>
-  							<p class="font-weight-light text-white">I have done quite a lot of design & coding on E-Commerce sites such as Magento 1 & 2, WooCommerce and CS Cart.</p>
-  							<a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
-  						</figcaption>
-  						<div class="text-overlay"></div>
-					</figure>
-				</div>
-			</div>
-    <div class="row d-inline-flex d-md-none">
-      <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-3">
-        <div class="card p-5 shadow bg-black">
-          <div class="card-body">
-            <span class="lnr lnr-screen display-4 text-white"></span>
-            <h5 class="font-weight-bold text-white py-3 text-center">Website Design</h5>
-            <p class="font-weight-light text-white">I have previously designed websites from scratch or I can follow a design to satisfy the clients needs.</p>
-            <a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
+        <div class="reveal group bg-white/5 border border-white/[0.08] rounded-2xl p-8 hover:bg-white/[0.08] transition-all duration-300 backdrop-blur-sm" style="transition-delay:.1s">
+          <div class="w-14 h-14 rounded-xl bg-brand-500/20 flex items-center justify-center mb-6 group-hover:bg-brand-500/30 transition-colors">
+            <i class="fas fa-code text-2xl text-brand-400"></i>
+          </div>
+          <h3 class="text-white font-bold text-xl mb-3">Front End Developer</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-5">I can code websites from scratch using HTML, CSS and JavaScript/jQuery as well as using modern frameworks such as React and Tailwind CSS.</p>
+          <p class="text-brand-400 text-xs font-semibold mb-2 uppercase tracking-wider">Core Languages:</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">SASS</span><span class="tag">PHP</span><span class="tag">JS</span><span class="tag">jQuery</span><span class="tag">SQL</span>
+          </div>
+          <p class="text-brand-400 text-xs font-semibold mb-2 uppercase tracking-wider">JS Frameworks:</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">React</span><span class="tag">React Native</span><span class="tag">Vue (exp.)</span><span class="tag">Nuxt (exp.)</span>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-3">
-        <div class="card p-5 shadow bg-black">
-          <div class="card-body">
-            <span class="lnr lnr-laptop-phone display-4 text-white"></span>
-            <h5 class="font-weight-bold text-white py-3 text-center">Mobile Responsiveness</h5>
-            <p class="font-weight-light text-white">All sites I make are responsive for all devices, such as desktop, tablet and mobile.</p>
-            <a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
+
+        <div class="reveal group bg-white/5 border border-white/[0.08] rounded-2xl p-8 hover:bg-white/[0.08] transition-all duration-300 backdrop-blur-sm" style="transition-delay:.2s">
+          <div class="w-14 h-14 rounded-xl bg-brand-500/20 flex items-center justify-center mb-6 group-hover:bg-brand-500/30 transition-colors">
+            <i class="fas fa-wrench text-2xl text-brand-400"></i>
+          </div>
+          <h3 class="text-white font-bold text-xl mb-3">Other Tools</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-5">I also use many other applications and software to complete the job within the time frame specified and to a high standard.</p>
+          <p class="text-brand-400 text-xs font-semibold mb-2 uppercase tracking-wider">Version Control:</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="tag">Git</span><span class="tag">GitFlow</span><span class="tag">GitKraken</span><span class="tag">Subversion</span>
+          </div>
+          <p class="text-brand-400 text-xs font-semibold mb-2 uppercase tracking-wider">CMS &amp; E-Commerce:</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">WordPress</span><span class="tag">Magento</span><span class="tag">Magento 2</span><span class="tag">CS Cart</span><span class="tag">WooCommerce</span>
           </div>
         </div>
+
       </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-3">
-        <div class="card p-5 shadow bg-black">
-          <div class="card-body">
-            <span class="lnr lnr-pencil display-4 text-white"></span>
-            <h5 class="font-weight-bold text-white py-3 text-center">Wireframes</h5>
-            <p class="font-weight-light text-white">I have experience creating wireframes to show clients how the elements will be displayed on the site.</p>
-            <a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
+    </div>
+  </section>
+
+  <!-- STRENGTHS & CAPABILITIES -->
+  <section class="py-20 bg-[#0b0715]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Strengths &amp; Capabilities</h2>
+        <p class="text-gray-400">Here are a few of my capabilities that I can offer. Interested? <a href="mailto:xerxes.bamji@hotmail.com" class="text-brand-400 hover:text-brand-300 underline transition-colors">Email me</a>.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="strength-card reveal h-64 cursor-default">
+          <div class="strength-inner">
+            <div class="strength-front rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6">
+              <i class="fas fa-desktop text-4xl text-brand-300"></i>
+              <h3 class="text-white font-bold text-lg">Website Design</h3>
+            </div>
+            <div class="strength-back rounded-2xl bg-[#1a0f2e] border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p class="text-gray-300 text-sm leading-relaxed">I have previously designed websites from scratch or I can follow a design to satisfy the client's needs.</p>
+              <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-5 py-2 rounded-full transition-colors">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-3">
-        <div class="card p-5 shadow bg-black">
-          <div class="card-body">
-            <span class="lnr lnr-magic-wand display-4 text-white"></span>
-            <h5 class="font-weight-bold text-white py-3 text-center">Website Mockups</h5>
-            <p class="font-weight-light text-white">Using professional design software I can mockup web designs focusing on content structure and simple interactions.</p>
-            <a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
+
+        <div class="strength-card reveal h-64 cursor-default" style="transition-delay:.05s">
+          <div class="strength-inner">
+            <div class="strength-front rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6">
+              <i class="fas fa-mobile-screen-button text-4xl text-brand-300"></i>
+              <h3 class="text-white font-bold text-lg">Mobile Responsiveness</h3>
+            </div>
+            <div class="strength-back rounded-2xl bg-[#1a0f2e] border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p class="text-gray-300 text-sm leading-relaxed">All sites I make are responsive for all devices, such as desktop, tablet and mobile.</p>
+              <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-5 py-2 rounded-full transition-colors">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-3">
-        <div class="card p-5 shadow bg-black">
-          <div class="card-body">
-            <span class="lnr lnr-select display-4 text-white"></span>
-            <h5 class="font-weight-bold text-white py-3 text-center">Content Management Systems (CMS)</h5>
-            <p class="font-weight-light text-white">If you'd like to manage your own website,  I have experience using popular frameworks such as Wordpress to suit your needs.</p>
-            <a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
+
+        <div class="strength-card reveal h-64 cursor-default" style="transition-delay:.1s">
+          <div class="strength-inner">
+            <div class="strength-front rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6">
+              <i class="fas fa-pencil text-4xl text-brand-300"></i>
+              <h3 class="text-white font-bold text-lg">Wireframes</h3>
+            </div>
+            <div class="strength-back rounded-2xl bg-[#1a0f2e] border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p class="text-gray-300 text-sm leading-relaxed">I have experience creating wireframes to show clients how the elements will be displayed on the site.</p>
+              <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-5 py-2 rounded-full transition-colors">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-3">
-        <div class="card p-5 shadow bg-black">
-          <div class="card-body">
-            <span class="lnr lnr-cart display-4 text-white"></span>
-            <h5 class="font-weight-bold text-white py-3 text-center">E-Commerce</h5>
-            <p class="font-weight-light text-white">I have done quite a lot of design & coding on E-Commerce sites such as Magento 1 & 2, WooCommerce and CS Cart.</p>
-            <a class="btn btn-purple rounded-btn px-4 mt-2 text-white w-75 mx-auto" href="mailto:xerxes.bamji@hotmail.com">Get Started <span class="lnr lnr-chevron-right"></span></a>
+
+        <div class="strength-card reveal h-64 cursor-default" style="transition-delay:.15s">
+          <div class="strength-inner">
+            <div class="strength-front rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6">
+              <i class="fas fa-wand-magic-sparkles text-4xl text-brand-300"></i>
+              <h3 class="text-white font-bold text-lg">Website Mockups</h3>
+            </div>
+            <div class="strength-back rounded-2xl bg-[#1a0f2e] border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p class="text-gray-300 text-sm leading-relaxed">Using professional design software I can mockup web designs focusing on content structure and simple interactions.</p>
+              <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-5 py-2 rounded-full transition-colors">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
+        </div>
+
+        <div class="strength-card reveal h-64 cursor-default" style="transition-delay:.2s">
+          <div class="strength-inner">
+            <div class="strength-front rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6">
+              <i class="fas fa-layer-group text-4xl text-brand-300"></i>
+              <h3 class="text-white font-bold text-lg">CMS</h3>
+            </div>
+            <div class="strength-back rounded-2xl bg-[#1a0f2e] border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p class="text-gray-300 text-sm leading-relaxed">If you'd like to manage your own website, I have experience using popular frameworks such as WordPress to suit your needs.</p>
+              <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-5 py-2 rounded-full transition-colors">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="strength-card reveal h-64 cursor-default" style="transition-delay:.25s">
+          <div class="strength-inner">
+            <div class="strength-front rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6">
+              <i class="fas fa-cart-shopping text-4xl text-brand-300"></i>
+              <h3 class="text-white font-bold text-lg">E-Commerce</h3>
+            </div>
+            <div class="strength-back rounded-2xl bg-[#1a0f2e] border border-brand-500/30 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p class="text-gray-300 text-sm leading-relaxed">I have done quite a lot of design &amp; coding on E-Commerce sites such as Magento 1 &amp; 2, WooCommerce and CS Cart.</p>
+              <a href="mailto:xerxes.bamji@hotmail.com" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-5 py-2 rounded-full transition-colors">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p class="text-center text-gray-500 text-xs mt-6 italic hidden sm:block">Hover a card to read more</p>
+    </div>
+  </section>
+
+  <!-- CORE EXPERTISE -->
+  <section id="expertise" class="py-24 bg-gradient-to-b from-brand-700 via-brand-600 to-brand-700 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.2)_0%,_transparent_70%)]"></div>
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-brand-200 mb-3">What I bring to the table</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Core Expertise</h2>
+        <p class="text-white/70 max-w-xl mx-auto text-base leading-relaxed">
+          As a front end developer, I believe in the importance of exceptional design and ensuring user friendliness. I strive to learn new techniques whenever I can in order to develop my skills and deliver an outstanding experience for users.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="expertise-card reveal group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-fuchsia-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-pen-ruler text-fuchsia-300 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base">UI/UX Design</h3>
+              <p class="text-white/50 text-xs mt-0.5">Design &amp; Prototyping</p>
+            </div>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Designing and implementing responsive customer journeys, ensuring a consistent and accessible experience across all devices. Experienced working to WCAG 2.2 AA standards.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">Figma</span><span class="tag">Photoshop</span><span class="tag">Illustrator</span><span class="tag">Balsamiq</span>
+          </div>
+        </div>
+
+        <div class="expertise-card reveal group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm" style="transition-delay:.05s">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-sky-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fab fa-react text-sky-300 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base">React &amp; React Native</h3>
+              <p class="text-white/50 text-xs mt-0.5">Frontend Frameworks</p>
+            </div>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Building functional interfaces from Figma designs. Worked closely with developers to deliver front end alongside back-end development on a significant React Native project.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">React</span><span class="tag">React Native</span><span class="tag">Vue (exp.)</span><span class="tag">Nuxt (exp.)</span>
+          </div>
+        </div>
+
+        <div class="expertise-card reveal group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm" style="transition-delay:.1s">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fab fa-html5 text-orange-300 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base">Core Languages</h3>
+              <p class="text-white/50 text-xs mt-0.5">HTML, CSS, JS &amp; more</p>
+            </div>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Strong foundation in HTML, CSS and JavaScript — building websites from scratch, debugging front-end issues, and maintaining consistency across browsers and platforms.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">SASS</span><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">Python</span><span class="tag">SQL</span>
+          </div>
+        </div>
+
+        <div class="expertise-card reveal group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm" style="transition-delay:.15s">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-teal-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-layer-group text-teal-300 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base">CSS Frameworks</h3>
+              <p class="text-white/50 text-xs mt-0.5">Styling &amp; Layout</p>
+            </div>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Experienced with modern CSS frameworks for rapid, consistent and scalable styling — from utility-first approaches to component libraries.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">Tailwind CSS</span><span class="tag">Bootstrap</span><span class="tag">Foundation</span><span class="tag">Bulma</span>
+          </div>
+        </div>
+
+        <div class="expertise-card reveal group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm" style="transition-delay:.2s">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-code-branch text-amber-300 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base">Dev Tools &amp; Workflow</h3>
+              <p class="text-white/50 text-xs mt-0.5">Daily Workflow</p>
+            </div>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Comfortable with modern development workflows — version control, package management and team collaboration tools that keep projects organised and moving fast.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">Git</span><span class="tag">GitFlow</span><span class="tag">GitKraken</span><span class="tag">GitHub</span><span class="tag">NPM</span><span class="tag">Gulp</span><span class="tag">VS Code</span><span class="tag">Netlify</span><span class="tag">Google Analytics</span><span class="tag">Agile</span>
+          </div>
+        </div>
+
+        <div class="expertise-card reveal group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm" style="transition-delay:.25s">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-universal-access text-green-300 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-base">Accessibility &amp; QA</h3>
+              <p class="text-white/50 text-xs mt-0.5">Standards &amp; Testing</p>
+            </div>
+          </div>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Applied accessibility and inclusive design principles, successfully delivering web applications meeting WCAG 2.2 AA standards. Cross-browser &amp; cross-platform QA testing.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag">WCAG 2.2 AA</span><span class="tag">Cross-browser</span><span class="tag">macOS</span><span class="tag">Windows</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK EXPERIENCE + EDUCATION -->
+  <section id="experience" class="py-24 bg-[#0a0612]">
+    <div class="max-w-5xl mx-auto px-6">
+
+      <!-- Section header -->
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-brand-400 mb-3">Career</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Experience &amp; Education</h2>
+        <p class="text-gray-400">Where I've worked and what I studied.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+        <!-- ── WORK TIMELINE (left 2/3) ── -->
+        <div class="lg:col-span-2">
+          <h3 class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-8">Work History</h3>
+
+          <!-- V12 Retail Finance -->
+          <div class="reveal relative pl-8 pb-12 border-l-2 border-brand-500/30">
+            <!-- dot -->
+            <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 border-4 border-[#0a0612] block"></span>
+
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+              <div>
+                <h4 class="text-white font-bold text-lg leading-tight">UI/UX Designer</h4>
+                <p class="text-brand-400 font-semibold text-sm mt-0.5">V12 Retail Finance</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 bg-brand-500/15 border border-brand-500/30 text-brand-300 text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0">
+                <i class="fas fa-briefcase text-[10px]"></i>
+                March 2019 – Present
+              </span>
+            </div>
+
+            <ul class="space-y-2 text-gray-400 text-sm leading-relaxed">
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Designed and implemented responsive finance websites and customer journeys, ensuring a consistent and accessible experience across desktop, tablet and mobile.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Developed strong front-end skills using HTML, CSS and JavaScript, expanding into React, React Native, Tailwind CSS, Bootstrap and Bulma.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Took on a significant React Native project — recreating Figma designs as functional interfaces and working closely with developers on back-end integration.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Applied accessibility and inclusive design principles, successfully delivering web applications meeting WCAG 2.2 AA standards.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Collaborated with developers, stakeholders and external design agencies. Independently designed and developed the V12 Integration Guide.</li>
+            </ul>
+
+            <div class="flex flex-wrap gap-1.5 mt-4">
+              <span class="tag">React</span><span class="tag">React Native</span><span class="tag">Tailwind CSS</span><span class="tag">Figma</span><span class="tag">WCAG 2.2 AA</span><span class="tag">GitHub</span>
+            </div>
+          </div>
+
+          <!-- Team 8 Digital -->
+          <div class="reveal relative pl-8 pb-4 border-l-2 border-brand-500/30">
+            <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-700 border-4 border-[#0a0612] block"></span>
+
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+              <div>
+                <h4 class="text-white font-bold text-lg leading-tight">Front End Developer</h4>
+                <p class="text-brand-400 font-semibold text-sm mt-0.5">Team 8 Digital</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 text-gray-400 text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0">
+                <i class="fas fa-briefcase text-[10px]"></i>
+                November 2017 – October 2018
+              </span>
+            </div>
+
+            <ul class="space-y-2 text-gray-400 text-sm leading-relaxed">
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Designed and implemented websites to meet the needs of clients, receiving feedback and making changes to bring the client's vision to life.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Developed responsive websites for all devices and browsers using CSS frameworks such as Bootstrap and Zurb Foundation.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Worked in an agile team, acted as Data Protection Officer and ensured all work adhered to GDPR compliance.</li>
+              <li class="flex gap-2"><span class="text-brand-500 mt-1 flex-shrink-0"><i class="fas fa-chevron-right text-[10px]"></i></span>Furthered skills in Adobe Photoshop and Adobe Illustrator, and developed knowledge of NPM, Gulp and Composer.</li>
+            </ul>
+
+            <div class="flex flex-wrap gap-1.5 mt-4">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">jQuery</span><span class="tag">Bootstrap</span><span class="tag">Foundation</span><span class="tag">Photoshop</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── EDUCATION (right 1/3) ── -->
+        <div class="lg:col-span-1">
+          <h3 class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-8">Education</h3>
+
+          <!-- Cardiff University -->
+          <div class="reveal bg-white/5 border border-white/[0.08] rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300 backdrop-blur-sm mb-5">
+            <div class="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center mb-4">
+              <i class="fas fa-graduation-cap text-brand-400 text-xl"></i>
+            </div>
+            <h4 class="text-white font-bold text-base mb-1">Computer Science BSc (Hons)</h4>
+            <p class="text-brand-400 font-semibold text-sm mb-1">Cardiff University</p>
+            <p class="text-gray-500 text-xs mb-3">2014 – 2017</p>
+            <div class="inline-flex items-center gap-1.5 bg-green-500/15 border border-green-500/30 text-green-300 text-xs font-bold px-3 py-1 rounded-full mb-3">
+              <i class="fas fa-star text-[10px]"></i>
+              2:1 Second Class Honours
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">Final Year Project: Implementing a user-friendly version of the Trak web site.</p>
+          </div>
+
+          <!-- St Cyres -->
+          <div class="reveal bg-white/5 border border-white/[0.08] rounded-2xl p-6 hover:bg-white/[0.08] transition-all duration-300 backdrop-blur-sm mb-5">
+            <div class="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center mb-4">
+              <i class="fas fa-school text-brand-400 text-xl"></i>
+            </div>
+            <h4 class="text-white font-bold text-base mb-1">A-Levels</h4>
+            <p class="text-brand-400 font-semibold text-sm mb-1">St Cyres School, Cardiff</p>
+            <p class="text-gray-500 text-xs mb-3">2007 – 2014</p>
+            <p class="text-gray-400 text-xs leading-relaxed">IT (B), History (B), Computing (C). Welsh Baccalaureate Advanced Diploma.</p>
+          </div>
+
+          <!-- Matthew Morgan Award -->
+          <div class="reveal bg-gradient-to-br from-brand-700/40 to-brand-900/40 border border-brand-500/30 rounded-2xl p-6 backdrop-blur-sm">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center mb-4">
+              <i class="fas fa-trophy text-yellow-400 text-xl"></i>
+            </div>
+            <h4 class="text-white font-bold text-base mb-1">Matthew Morgan Award</h4>
+            <p class="text-brand-400 font-semibold text-sm mb-1">Academic Achievement · 2014</p>
+            <p class="text-gray-400 text-xs leading-relaxed">Awarded for highest marks in the year group for both A Level IT and Computing.</p>
+          </div>
+
         </div>
       </div>
     </div>
-		</div>
-	</section>
+  </section>
 
-	<section class="bg-purple medium-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h3 class="font-weight-bold text-white">Skills</h3>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center pt-2">
-					<p class="about-me font-weight-thin text-white w-75 m-auto">
-            As a front end developer, I believe in the importance of exceptional design and ensuring user friendliness. I strive to learn new techniques whenever I can in order to develop my skills and result in an outstanding experience for users. Right now, I would say my skills are at the levels described below.
-          </p>
-				</div>
-			</div>
-		</div>
-	</section>
+  <!-- RECENT WORK -->
+  <section id="work" class="py-24 bg-gradient-to-b from-brand-700 via-brand-600 to-brand-700 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.2)_0%,_transparent_70%)]"></div>
 
-	<section class="pb-5 skills-bars">
-		<div class="container pb-5">
-			<div class="row pb-5">
-				<div class="col-lg-4 col-md-6 col-sm-12 mb-10 mb-lg-0">
-					<div class="card overlap-card p-5 shadow bg-black">
-						<div class="card-body">
-							<h5 class="font-weight-bold text-white py-3 text-center">Website Design</h5>
-							<div class="progress" style="height: 35px;">
-  								<div class="progress-bar progress-bar-striped font-weight-bold" role="progressbar" style="width: 85%; margin: 5px; border-radius: 1.25rem;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-								<p class="font-weight-bold text-white m-auto pr-1">85%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 mb-10 mb-lg-0">
-					<div class="card overlap-card p-5 shadow bg-black">
-						<div class="card-body">
-							<h5 class="font-weight-bold text-white py-3 text-center">Front End Developer</h5>
-							<div class="progress" style="height: 35px;">
-  								<div class="progress-bar progress-bar-striped font-weight-bold" role="progressbar" style="width: 75%; margin: 5px; border-radius: 1.25rem;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-								<p class="font-weight-bold text-white m-auto pr-1">75%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-12 col-sm-12">
-					<div class="card overlap-card p-5 shadow bg-black">
-						<div class="card-body">
-							<h5 class="font-weight-bold text-white py-3 text-center">jQuery</h5>
-							<div class="progress" style="height: 35px;">
-  								<div class="progress-bar progress-bar-striped font-weight-bold" role="progressbar" style="width: 80%; margin: 5px; border-radius: 1.25rem;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-								<p class="font-weight-bold text-white m-auto pr-1">80%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+    <div class="max-w-6xl mx-auto px-6">
 
-  <section class="py-5 recent-work">
-    <div class="container">
-      <div class="row">
-				<div class="col-lg-12 text-center">
-					<h3 class="font-weight-bold text-dark">Recent Work</h3>
-					<p class="font-weight-light black-color py-3">Here are a few of the sites I have previosuly worked on.</p>
-				</div>
-			</div>
-      <div class="row">
-		  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-          <a href="https://integration.v12finance.com" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/v12-logo.png">
+      <!-- Header -->
+      <div class="text-center mb-14 reveal">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-brand-200 mb-3">Portfolio</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Recent Work</h2>
+        <p class="text-white/70">Here are a few of the sites I have previously worked on.</p>
+      </div>
+
+      <!-- TOP ROW — 2 featured cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- V12 Integration -->
+        <a href="https://integration.v12finance.com" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">integration.v12finance.com</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-52 overflow-hidden">
+            <img src="img/screenshot-v12-integration.png" alt="V12 Finance Integration" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1.5 bg-brand-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                View Site <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </span>
             </div>
-          </a>
+          </div>
+          <div class="px-5 py-4 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">V12 Finance Integration</p>
+              <p class="text-white/40 text-xs mt-0.5">V12 Retail Finance &middot; 2019&ndash;Present</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-300 border border-brand-500/30 px-2.5 py-1 rounded-full">UI/UX</span>
+          </div>
+        </a>
+
+        <!-- V12 Season Ticket -->
+        <a href="https://www.v12seasonticketfinance.com" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40" style="transition-delay:.05s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">v12seasonticketfinance.com</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-52 overflow-hidden">
+            <img src="img/screenshot-v12-seasonticket.png" alt="V12 Season Ticket Finance" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1.5 bg-brand-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                View Site <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+          <div class="px-5 py-4 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">V12 Season Ticket Finance</p>
+              <p class="text-white/40 text-xs mt-0.5">V12 Retail Finance &middot; 2019&ndash;Present</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30 px-2.5 py-1 rounded-full">Responsive</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- LOWER ROW — 3-col grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Personal Finance -->
+        <a href="https://apply.v12personalfinance.com" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40" style="transition-delay:.1s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">apply.v12personalfinance.com</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-40 overflow-hidden">
+            <img src="img/screenshot-v12-personalfinance.png" alt="V12 Personal Finance" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1 bg-brand-500 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                View <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+              </span>
+            </div>
+          </div>
+          <div class="px-4 py-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">V12 Personal Finance</p>
+              <p class="text-white/40 text-xs mt-0.5">UI/UX &middot; Responsive</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-300 border border-brand-500/30 px-2 py-0.5 rounded-full">Finance</span>
+          </div>
+        </a>
+
+        <!-- Bark Bungalow -->
+        <a href="https://thebarkbungalow.com" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40" style="transition-delay:.15s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">thebarkbungalow.com</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-40 overflow-hidden">
+            <img src="img/screenshot-barkbungalow.png" alt="The Bark Bungalow" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1 bg-brand-500 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                View <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+              </span>
+            </div>
+          </div>
+          <div class="px-4 py-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">The Bark Bungalow</p>
+              <p class="text-white/40 text-xs mt-0.5">Web Design &middot; Development</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30 px-2 py-0.5 rounded-full">Client</span>
+          </div>
+        </a>
+
+        <!-- Wagging Mama -->
+        <a href="https://waggingmama.netlify.app/" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40" style="transition-delay:.2s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">waggingmama.netlify.app</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-40 overflow-hidden">
+            <img src="img/screenshot-waggingmama.png" alt="Wagging Mama" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1 bg-brand-500 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                View <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+              </span>
+            </div>
+          </div>
+          <div class="px-4 py-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">Wagging Mama</p>
+              <p class="text-white/40 text-xs mt-0.5">Web Design &middot; Development</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30 px-2 py-0.5 rounded-full">Client</span>
+          </div>
+        </a>
+
+        <!-- Ignis Secure -->
+        <a href="https://ignissecure.netlify.app/" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40" style="transition-delay:.25s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">ignissecure.netlify.app</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-40 overflow-hidden">
+            <img src="img/screenshot-ignissecure.png" alt="Ignis Secure" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1 bg-brand-500 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                View <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+              </span>
+            </div>
+          </div>
+          <div class="px-4 py-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">Ignis Secure</p>
+              <p class="text-white/40 text-xs mt-0.5">Web Design &middot; Development</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-teal-500/20 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded-full">Security</span>
+          </div>
+        </a>
+
+        <!-- Three Estate Agents -->
+        <a href="https://www.threeestateagents.co.uk" target="_blank" rel="noopener"
+           class="reveal group block rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 bg-[#0f0b1f] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 sm:col-span-2 lg:col-span-2" style="transition-delay:.35s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">threeestateagents.co.uk</span>
+          </div>
+          <div class="relative bg-[#0f0b1f] flex items-center justify-center h-40 overflow-hidden">
+            <img src="img/screenshot-3ea.png" alt="Three Estate Agents" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="inline-flex items-center gap-1 bg-brand-500 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                View <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+              </span>
+            </div>
+          </div>
+          <div class="px-4 py-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">Three Estate Agents</p>
+              <p class="text-white/40 text-xs mt-0.5">Web Design &middot; Development &middot; Team 8 Digital</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full">Property</span>
+          </div>
+        </a>
+
+        <!-- Secure Trust Bank Savings App -->
+        <div class="reveal rounded-2xl overflow-hidden border border-sky-500/30 bg-[#0f0b1f] transition-all duration-300" style="transition-delay:.3s">
+          <div class="flex items-center gap-1.5 bg-[#1a1130] px-4 py-2.5 border-b border-white/5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            <span class="ml-3 flex-1 bg-white/5 rounded-md text-white/30 text-[10px] px-3 py-0.5 truncate">savingsapplication.securetrustbank.com</span>
+          </div>
+          <!-- Branded placeholder — app requires live session token -->
+          <div class="relative h-40 flex flex-col items-center justify-center gap-3 overflow-hidden" style="background: linear-gradient(135deg, #003359 0%, #004a7c 60%, #006a9e 100%);">
+            <!-- STB shield icon -->
+            <svg class="w-12 h-12 text-white/80" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4.18l6 2.67v4.15c0 3.83-2.62 7.42-6 8.55-3.38-1.13-6-4.72-6-8.55V7.85l6-2.67z"/>
+            </svg>
+            <p class="text-white/50 text-xs text-center px-6 leading-relaxed">Requires authenticated session<br><span class="text-sky-300 font-semibold">Live secured application</span></p>
+          </div>
+          <div class="px-4 py-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-white font-semibold text-sm">Secure Trust Bank — Savings App</p>
+              <p class="text-white/40 text-xs mt-0.5">React Native · V12 Retail Finance</p>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30 px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0">React Native</span>
+          </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-          <a href="https://www.v12seasonticketfinance.com" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/v12-seasonticket.png">
-            </div>
-          </a>
-        </div>
-		<div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-          <a href="https://thebarkbungalow.com" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/barkbungalow.png">
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-          <a href="https://waggingmama.netlify.app/" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/waggingmama.png">
-            </div>
-          </a>
-        </div>
-		<div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-          <a href="https://apply.v12personalfinance.com" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/personal-finance.png">
-            </div>
-          </a>
-        </div>
-		<div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-          <a href="https://ignissecure.netlify.app/" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/ignissecure.png">
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-          <a href="https://www.threeestateagents.co.uk" target="_blank">
-            <div class="card shadow-sm">
-              <img class="w-100 site-img" src="img/3ea.png">
-            </div>
+
+      </div>
+    </div>
+  </section>
+
+    <!-- CTA -->
+  <section id="contact" class="py-20 bg-[#0b0715]">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="reveal relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-700 to-brand-900 border border-brand-500/30 p-10 sm:p-14 text-center">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(109,40,217,0.4)_0%,transparent_70%)]"></div>
+        <div class="relative z-10">
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Start a Project</h2>
+          <p class="text-white/70 text-lg mb-8 max-w-lg mx-auto">Interested in working together? Email me and let's create something great.</p>
+          <a href="mailto:xerxes.bamji@hotmail.com"
+             class="inline-flex items-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-full hover:bg-brand-100 transition-all duration-200 shadow-xl hover:-translate-y-0.5 text-sm sm:text-base">
+            Get Started <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="pb-5">
-    <div class="container pb-5">
-      <div class="row">
-        <div class="col-lg-12 text-center py-5">
-          <!-- <div class="pb-5">
-            <h3 class="font-weight-thin text-dark pb-3">”Design is not just what it looks like and feels like. Design is how it works.”</h3>
-            <h6 class="font-weight-bold text-dark">Steve Jobs</h6>
-          </div> -->
-				</div>
+  <!-- FOOTER -->
+  <footer class="bg-gradient-to-b from-brand-700 via-brand-800 to-[#0a0612] pt-16 pb-10">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <img src="img/logo-white.png" alt="Xerxes Bamji" class="h-9 w-auto mx-auto mb-6">
+      <p class="text-white/50 italic text-sm mb-8 max-w-sm mx-auto">"Design is like painting, except the paint never dries."</p>
+      <div class="flex items-center justify-center gap-4 mb-8">
+        <a href="https://www.linkedin.com/in/xerxes-bamji-221349aa/" target="_blank" rel="noopener" aria-label="LinkedIn"
+           class="w-11 h-11 rounded-full bg-white/10 hover:bg-brand-500 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:-translate-y-0.5">
+          <i class="fab fa-linkedin-in text-sm"></i>
+        </a>
+        <a href="https://github.com/XerxesBamji" target="_blank" rel="noopener" aria-label="GitHub"
+           class="w-11 h-11 rounded-full bg-white/10 hover:bg-brand-500 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:-translate-y-0.5">
+          <i class="fab fa-github text-sm"></i>
+        </a>
+        <a href="tel:07503167132" aria-label="Phone"
+           class="w-11 h-11 rounded-full bg-white/10 hover:bg-brand-500 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:-translate-y-0.5">
+          <i class="fas fa-phone text-sm"></i>
+        </a>
+        <a href="mailto:xerxes.bamji@hotmail.com" aria-label="Email"
+           class="w-11 h-11 rounded-full bg-white/10 hover:bg-brand-500 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:-translate-y-0.5">
+          <i class="far fa-envelope text-sm"></i>
+        </a>
       </div>
+      <p class="text-white/30 text-xs">&copy; <span id="year"></span> Xerxes Bamji. All rights reserved.</p>
     </div>
-  </section>
+  </footer>
 
-	<section class="bg-purple medium-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card py-5 overlap-card bg-black">
-						<div class="card-body">
-							<div class="row px-5">
-								<div class="col-lg-4 col-md-4 col-sm-12 my-auto text-center text-md-left pb-3 pb-md-0">
-									<h3 class="font-weight-bold text-white">Start a Project</h3>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-12 text-center my-auto pb-3 pb-md-0">
-									<p class="font-weight-light text-white m-0">Interested in working together? Email Me.</p>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-12 text-md-right text-center">
-									<a class="btn btn-purple rounded-btn px-4 text-white" href="mailto:xerxes.bamji@hotmail.com">Get Started</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row pt-5 py-md-0">
-				<div class="col-lg-12 text-center">
-					<img class="logo-white" src="img/logo-white.png">
-				</div>
-			</div>
-      <div class="row py-4 w-65 m-auto">
-				<div class="col-lg-12 text-center">
-					<h6 class="font-weight-thin text-white inspirational-quote">"Design is like painting, except the paint never dries."</h6>
-				</div>
-			</div>
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <div class="d-inline">
-              <a class="footer-icons btn btn-purple-white mx-2" href="https://www.linkedin.com/in/xerxes-bamji-221349aa/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-              <a class="footer-icons btn btn-purple-white mx-2" href="https://github.com/XerxesBamji" target="_blank"><i class="fab fa-github"></i></a>
-              <a class="footer-icons btn btn-purple-white mx-2" href="tel:07503167132"><i class="fas fa-phone"></i></a>
-              <a class="footer-icons btn btn-purple-white mx-2" href="mailto:xerxes.bamji@hotmail.com"><i class="far fa-envelope"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="row pt-5 w-65 m-auto">
-				<div class="col-lg-12 text-center">
-					<h6 class="font-weight-thin text-white vote">What do you think of my site?</h6>
-          <div class="sharethis-inline-reaction-buttons"></div>
-				</div>
-			</div>
-		</div>
-	</section>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('bg-[#0a0612]', 'bg-opacity-90', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-lg');
+      } else {
+        navbar.classList.remove('bg-[#0a0612]', 'bg-opacity-90', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-lg');
+      }
+    }, { passive: true });
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+    const menuBtn    = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', open);
+      menuBtn.setAttribute('aria-expanded', String(!open));
+      menuBtn.querySelector('i').className = open ? 'fas fa-bars text-xl' : 'fas fa-times text-xl';
+    });
+    function closeMobileMenu() {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.querySelector('i').className = 'fas fa-bars text-xl';
+    }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer  = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
 </html>
